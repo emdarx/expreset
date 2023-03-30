@@ -5,7 +5,7 @@ UUID for VIP Servers: a7df0287-3541-4a54-919e-27425e27131b
 
 first put this code on your Cloudflare Workers:
 
-
+```
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request))
 })
@@ -28,3 +28,4 @@ async function handleRequest(request) {
   
   return fetch(url, request);
 }
+```
