@@ -3,7 +3,7 @@ This resource provides users with a list of VIP servers accessible by v2ray clie
 UUID: a7df0287-3541-4a54-919e-27425e27131b
 
 
-first put this code on your Cloudflare Workers:
+ابتدا یک ورکر در کلادفلر بسازید و کد زیر را در ورکر قرار دهید
 
 ```
 addEventListener('fetch', event => {
