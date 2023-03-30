@@ -1,6 +1,6 @@
 This resource provides users with a list of VIP servers accessible by v2ray clients.
 
-UUID for VIP Servers: a7df0287-3541-4a54-919e-27425e27131b
+UUID: a7df0287-3541-4a54-919e-27425e27131b
 
 
 first put this code on your Cloudflare Workers:
