@@ -1,6 +1,5 @@
-This resource provides users with a list of VIP servers accessible by v2ray clients.
-
-UUID: a7df0287-3541-4a54-919e-27425e27131b
+اینترنت آزاد برای همه یا هیچکس ...
+سپاس از اساتید @iSegaro و @vfarid
 
 
 ابتدا یک ورکر در کلادفلر بسازید و کد زیر را در ورکر قرار دهید
@@ -33,3 +32,5 @@ async function handleRequest(request) {
 سپس کانفیگ خود را بصورت زیر در کلاینت ایجاد کنید
 
 ![image](https://user-images.githubusercontent.com/16276003/229743960-3481a69e-d919-4109-a719-246166ed301a.png)
+
+UUID: a7df0287-3541-4a54-919e-27425e27131b
