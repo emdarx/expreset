@@ -10,7 +10,7 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(request) {
-  const serverListUrl = 'https://raw.githubusercontent.com/amirhmz/v2ray-vip/main/servers.txt';
+  const serverListUrl = 'https://raw.githubusercontent.com/emdarx/expreset/main/list.txt';
   const serverListResponse = await fetch(serverListUrl);
   const serverListText = await serverListResponse.text();
   const serverList = serverListText.split('\n');
