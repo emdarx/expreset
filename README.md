@@ -29,3 +29,7 @@ async function handleRequest(request) {
   return fetch(url, request);
 }
 ```
+
+سپس کانفیگ خود را بصورت زیر در کلاینت ایجاد کنید
+
+![image](https://user-images.githubusercontent.com/16276003/229743960-3481a69e-d919-4109-a719-246166ed301a.png)
