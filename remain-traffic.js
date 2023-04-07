@@ -15,7 +15,7 @@ async function handleScheduledEvent() {
   if (json.hasOwnProperty("remainingTraffic")) {
     const remaining_traffic = parseFloat(json.remainingTraffic);
     console.log(remaining_traffic);
-    const message = `🌏 ترافیک باقی مانده: ${remaining_traffic} گیگابایت\n\n@Expreset Silver سرویس`;
+    const message = `🌏 ترافیک باقی مانده: ${remaining_traffic} گیگابایت\n\n@Expreset Bronze سرویس`;
     const encoded_message = encodeURIComponent(message);
     const telegram_url = `https://api.telegram.org/bot${telegram_token}/sendMessage?chat_id=${telegram_chat_id}&text=${encoded_message}`;
     const telegram_response = await fetch(telegram_url);
