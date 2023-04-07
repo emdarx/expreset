@@ -1,4 +1,4 @@
-const maxPerType = 300
+const maxPerType = 200
 const includeOriginalConfigs = 0
 const onlyUseMyConfigs = 0
 const subLinks = [
@@ -14,7 +14,7 @@ const cnfLinks = [
   "https://raw.githubusercontent.com/awesome-vpn/awesome-vpn/master/all"
 ]
 const myConfigs = [
-// "vmess://ewogICAgImFkZCI6ICJtdG4uZXhwcmVzZXQuY2xpY2siLAogICAgImFpZCI6ICIwIiwKICAgICJob3N0IjogInNlcnZlcjExLmFtaXJkYXJrLmNsaWNrIiwKICAgICJpZCI6ICJhNDk0N2NkNS1iNTkxLTQ5MzgtOTM5Zi1lNWMxZWVlZjBlNmQiLAogICAgIm5ldCI6ICJ3cyIsCiAgICAicGF0aCI6ICIvdm1lc3MiLAogICAgInBvcnQiOiAiNDQzIiwKICAgICJwcyI6ICIiLAogICAgInNjeSI6ICJhdXRvIiwKICAgICJzbmkiOiAic2VydmVyMTEuYW1pcmRhcmsuY2xpY2siLAogICAgInRscyI6ICJ0bHMiLAogICAgInR5cGUiOiAiYXV0byIsCiAgICAidiI6ICIyIgp9Cg==",
+// "vmess://ewogICAgImFkZCI6ICJtdG4uZXhwcmVzZXQuY2xpY2siLAognNlcnZlcjExLmFtaXJkYXJrLmNsaWNrIiwKICAgICJpZCI6ICJhNDk0N2NkNS1iNTkxLTQ5MzgtOTM5Zi1lNWMxZWVlZjBlNmQiLAogICAgIm5ldCI6ICJ3cyIsCiAgICAicGF0aCI6ICIvdm1lc3MiLAogICAgInBvcnQiOiAiNDQzIiwKICAgICJwcyI6ICIiLAogICAgInNjeSI6ICJhdXRvIiwKICAgICJzbmkiOiAic2VydmVyMTEuYW1pcmRhcmsuY2xpY2siLAogICAgInRscyI6ICJ0bHMiLAogICAgInR5cGUiOiAiYXV0byIsCiAgICAidiI6ICIyIgp9Cg==",
 // "vmess://...."
 ]
 const cleanIPPerOperator = {
@@ -23,7 +23,7 @@ const cleanIPPerOperator = {
   IRANCELL: [],
   MBT: [],
   HamraheAval: [],
-  ADSL: ['mkh.expreset.click'],
+ // ADSL: ['mkh.expreset.click'],
   PRS: [],
   RighTel: [],
   SHT: [],
