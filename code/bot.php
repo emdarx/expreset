@@ -1,15 +1,13 @@
 <?php
 
-$bot_token = '000000000000000000000000000000000000000000000000';
+$bot_token = '00000000000000000000000000000000000000000000000';
 
 $update = json_decode(file_get_contents('php://input'), true);
 $message = $update['message'];
 $chat_id = $message['chat']['id'];
 
 if (strpos($message['text'], '/start') === 0) {
-   // $response = "Welcome to the Expreset bot";
-    send_message($chat_id, $response);
-    $response = "یک گزینه را انتخاب کنید";
+    $response = "به ربات Expreset خوش آمدید.\nیک گزینه را انتخاب کنید";
     $reply_markup = array(
         "keyboard" => array(
             array(
@@ -38,7 +36,7 @@ if ($message['text'] == "❎ مشاهده وضعیت اشتراک") {
     }
 
     if ($user_uuid == "") {
-        $response = "شما اشتراک فعالی ندارید.\n🪐 خرید اشتراک: @Support";
+        $response = "⚠️ شما اشتراک فعالی ندارید.\n خرید اشتراک: @eXpresetSupport";
         send_message($chat_id, $response);
     }
 
@@ -50,9 +48,18 @@ if ($message['text'] == "❎ مشاهده وضعیت اشتراک") {
         $remaining_traffic = $api_data['remainingTraffic'];
         $uuid = substr($api_data['uuid'], 0, 8);
 
-        $response = "ترافیک باقی مانده: ".$remaining_traffic."\n";
-        $response .= "Account #".$uuid;
-        send_message($chat_id, $response);
+        if ($remaining_traffic == 0) {
+            $response = "Account #".$uuid."\n";
+            $response .= "⚠️ حجم اشتراک به پایان رسیده است\n";
+            $response .= "تمدید اشتراک: @eXpresetSupport";
+            send_message($chat_id, $response);
+        }
+        else {
+		$response = "Account #".$uuid."\n";
+		$response .= "حجم باقی مانده: ".number_format($remaining_traffic, 2)." گیگ\n";
+		$response .= "وضعیت: فعال ✅";
+		send_message($chat_id, $response);
+        }
     }
 }
 
