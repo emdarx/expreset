@@ -10,11 +10,11 @@ if (strpos($message['text'], '/start') === 0) {
     $response = "به ربات Expreset خوش آمدید\nیک گزینه را انتخاب کنید:";
     $reply_markup = array(
         "keyboard" => array(
-            array(
-				array("text" => "🔁 تمدید اشتراک"),
+                array(
+		array("text" => "🔁 تمدید اشتراک"),
                 array("text" => "🛒 خرید اشتراک")
             ),
-            array(
+                array(
                 array("text" => "❎ مشاهده وضعیت اشتراک (ها)")
             )
         ),
