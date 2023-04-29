@@ -1,6 +1,6 @@
 <?php
 
-$bot_token = '101010101010101010101010101010101010101010101010101010';
+$bot_token = '10101010101010101010101010101010101010101010101010101010';
 $file_url = "https://raw.githubusercontent.com/emdarx/expreset/main/user/list.txt";
 $update = json_decode(file_get_contents('php://input'), true);
 $message = $update['message'];
@@ -26,7 +26,31 @@ if (strpos($message['text'], '/start') === 0) {
 }
 
 if ($message['text'] == "📖 راهنمای اتصال") {
-    $response = "راهنمای استفاده از سرویس ها:\n\nبا توجه به اختلالات گسترده در اینترنت کشور و استفاده از سیستم فیلترینگ چینی GFW، دیگر نمیتوان از اشتراک های V2RAY مثل سابق استفاده کرد. زیرا پروتکل های VLESS و VMESS به تنهایی تضمین کننده ارتباط شما نیستند. سعی کنید همیشه از آخرین نسخه برنامه ها استفاده کنید.\n\nپس از دریافت اشتراک خود بصورت کد یا QR CODE آن را در برنامه مخصوص گوشی خود وارد نمایید.\n\n🗳 آیفون: Wings X یا V2BOX\nNapsternetv هم برای اینکار مناسب است اما ما آن را پیشنهاد نمیکنیم\nWingsX: t.ly/XXM6\nV2BOX: t.ly/Zlz-\n\n🗳 اندروید: V2rayng یا matsuri\nv2rayng: t.ly/-gsl\nmatsuri: t.ly/JWOR";
+    $response = "راهنمای استفاده از سرویس ها:
+
+با توجه به اختلالات گسترده در اینترنت کشور و استفاده از سیستم فیلترینگ چینی GFW، و قدیمی بودن هسته xray کلاینت هایی مثل Napsternetv و امکان لو رفتن اطلاعات و فیلتر سرور، بهتر از طبق آموزش های ما از کلاینت های بروز مخصوص هر دستگاه استفاده کنید.
+
+پس از دریافت اشتراک خود بصورت کد یا QR CODE آن را در برنامه مخصوص گوشی یا کامپیوتر خود وارد نمایید.
+
+
+🗳 برنامه iOS 16 به بالا
+Wings X t.ly/XXM6
+🗳 برنامه iOS 14 به بالا
+V2BOX t.ly/Zlz-
+🗳 برنامه iOS 12 به بالا
+Fair VPN t.ly/EO4i
+
+🗳 برنامه های اندروید
+V2RAYNG t.ly/-gsl
+MATSURI t.ly/JWOR
+NapsternetV t.ly/hcWQK
+
+🗳 برنامه های ویندوز
+V2RAYN t.ly/PMtg
+nekoray t.ly/WVbY
+
+
+";
     send_message($chat_id, $response);
 }
 
@@ -99,7 +123,7 @@ if ($message['text'] == "🔁 تمدید اشتراک") {
             $remaining_traffic = $api_data['remainingTraffic'];
             $uuid = substr($api_data['uuid'], 0, 8);
 
-            if ($remaining_traffic == 0.00) {
+            if ($remaining_traffic <= 0.00) {
                 $response .= "اشتراک #".$uuid."\n";
                 $response .= "⚠️ حجم اشتراک به پایان رسیده است\n";
             }
