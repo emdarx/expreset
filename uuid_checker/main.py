@@ -56,7 +56,7 @@ def index():
         remaining_traffic = get_remaining_traffic(user['uuid'])
         row = f"<tr><td>{user['uuid']}</td><td>{user['telegram_id']}</td><td>{remaining_traffic:.2f} GB</td>"
         if remaining_traffic < 3:
-            row += f"<td><button class=\"blue-button\" onclick=\"extendVolume('{user['uuid']}')\">Volume Increase</button></td>"
+            row += f"<td><button class=\"blue-button\" onclick=\"extendVolume('{user['uuid']}')\">+ Increase</button></td>"
         else:
             row += "<td></td>"
         row += "</tr>"
