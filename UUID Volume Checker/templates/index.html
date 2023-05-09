@@ -34,7 +34,9 @@
     </div>
     <script>
       $(window).on("load", function () {
-        $(".loading").fadeOut("slow");
+        setTimeout(function() {
+          $(".loading").fadeOut("slow");
+        }, 800);
       });
 
       function extendVolume(uuid) {
