@@ -1,15 +1,21 @@
 import requests
 from tqdm import tqdm
 import time
+import os
 
-url = "http://at1.cdn.asandl.com/software/os/windows/8.1/2017/December/AW8.1.Pro.December.2017.x86.x64_AsanDl.com.part1.rar"
-chunk_size = 52428800  # 50MB in bytes
+url = "http://gs2.ww.prod.dl.playstation.net/gs2/ppkgo/prod/CUSA33387_00/8/f_48b7cbab941b354b0f3779e37f3f3a021d6a072f60cc6917a726077f24479528/f/UP0102-CUSA33387_00-RE4RMAINGAME0000-A0105-V0100_0.pkg"
+chunk_size = 52428800 #50MB
 
-# get user input for desired download size
-size_mb = int(input("How much internet volume should I use (in MB)? "))
+while True:
+    size_mb = int(input("How much data do you want to download (in MB)? "))
+    if size_mb < 50:
+        print("Please enter a number greater than or equal to 50.")
+        continue
+    else:
+        break
+
 size_bytes = size_mb * 1024 * 1024
 
-# initiate download
 downloaded_bytes = 0
 while downloaded_bytes < size_bytes:
     try:
@@ -17,7 +23,7 @@ while downloaded_bytes < size_bytes:
             response = session.get(url, stream=True, timeout=30)
             response.raise_for_status()
 
-            with open("file.bin", "ab") as f:
+            with open("file.pkg", "ab") as f:
                 for chunk in tqdm(response.iter_content(chunk_size=chunk_size),
                                   total=size_bytes // chunk_size + 1):
                     if chunk:
@@ -32,3 +38,6 @@ while downloaded_bytes < size_bytes:
         continue
 
 print(f"Downloaded {downloaded_bytes / 1024 / 1024:.2f}MB")
+os.remove("file.pkg")
+
+input("Press Enter to exit")
