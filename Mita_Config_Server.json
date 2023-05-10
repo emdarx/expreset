@@ -1,0 +1,20 @@
+{
+    "portBindings": [
+        {
+            "port": 9210,
+            "protocol": "TCP"
+        },
+        {
+            "port": 9215,
+            "protocol": "UDP"
+        }
+    ],
+    "users": [
+        {
+            "name": "expreset",
+            "password": "J!2PU2on{0Pg"
+        }
+    ],
+    "loggingLevel": "INFO",
+    "mtu": 1480
+}
