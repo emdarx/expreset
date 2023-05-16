@@ -3,7 +3,7 @@ from tqdm import tqdm
 import time
 import os
 
-url = "http://gs2.ww.prod.dl.playstation.net/gs2/ppkgo/prod/CUSA33387_00/8/f_48b7cbab941b354b0f3779e37f3f3a021d6a072f60cc6917a726077f24479528/f/UP0102-CUSA33387_00-RE4RMAINGAME0000-A0105-V0100_0.pkg"
+url = "https://dn802605.us.archive.org/0/items/win-10-pro/Win10Pro.iso"
 chunk_size = 52428800 #50MB
 
 while True:
