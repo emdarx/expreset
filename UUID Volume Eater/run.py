@@ -9,19 +9,15 @@ import subprocess
 url = "https://archive.org/download/windows-11_202201/Win11_Hungarian_x64v1.iso"
 chunk_size = 52428800  # 50MB in bytes
 
-# Prompt user for download size
 size_mb = int(input("How much internet volume should I use (in MB)? "))
 size_bytes = size_mb * 1024 * 1024
 
-# Prompt user if computer should be turned off
 turn_off = input("Do you want to turn off the computer after the download is complete? (Y/N): ").lower()
 
-# Calculate the number of chunks needed
 num_chunks = size_bytes // chunk_size
 if size_bytes % chunk_size != 0:
     num_chunks += 1
 
-# Function to download a chunk
 def download_chunk(chunk_start):
     try:
         with requests.Session() as session:
@@ -36,14 +32,12 @@ def download_chunk(chunk_start):
     except (requests.exceptions.Timeout, requests.exceptions.ConnectionError):
         print(f"Connection error or timeout occurred for chunk starting at {chunk_start}. Retrying...")
 
-# Cleanup function to delete downloaded files
 def cleanup_files():
     for chunk_start in chunk_starts:
         file_path = f"file_{chunk_start}.bin"
         if os.path.exists(file_path):
             os.remove(file_path)
 
-# Initiate download with multiple connections
 downloaded_bytes = 0
 chunk_starts = [chunk_size * i for i in range(num_chunks)]
 with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -57,10 +51,7 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
 
 print(f"Downloaded {downloaded_bytes / 1024 / 1024:.2f}MB")
 
-# Check if computer should be turned off
 if turn_off == "y":
-    # Initiate computer shutdown
     subprocess.call(["shutdown", "-s", "-t", "0"])
 
-# Register the cleanup function
 atexit.register(cleanup_files)
