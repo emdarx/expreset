@@ -5,6 +5,8 @@ from tenacity import retry, wait_fixed, stop_after_delay
 import time
 import functools
 import concurrent.futures
+from jdatetime import datetime as jdatetime_datetime, timedelta as jdatetime_timedelta
+import pytz
 
 
 app = Flask(__name__, static_url_path='', static_folder='./')
@@ -18,8 +20,8 @@ def get_users():
     users = []
     for line in lines:
         try:
-            telegram_id, uuid = line.strip().split(',')
-            users.append({'telegram_id': telegram_id, 'uuid': uuid})
+            telegram_id, uuid, expire_date = line.strip().split(',')
+            users.append({'telegram_id': telegram_id, 'uuid': uuid, 'expire_date': expire_date})
         except ValueError:
             pass
     return users
@@ -57,7 +59,6 @@ def get_remaining_traffic(uuid):
     return remaining_traffic, reset_times
 
 
-
 TABLE_HTML = """
     <table>
       <thead>
@@ -65,8 +66,9 @@ TABLE_HTML = """
           <th>UUID</th>
           <th>Telegram ID</th>
           <th>Remaining Volume</th>
-          <th>Number of charges</th>
-          <th>             </th>
+          <th>Number of Charges</th>
+          <th>Days Left</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -80,7 +82,26 @@ def fetch_remaining_traffic(user):
     try:
         remaining_traffic, reset_times = get_remaining_traffic(user['uuid'])
         reset_times_str = f"{reset_times}/5" if reset_times is not None else ""
-        row = f"<tr><td>{user['uuid']}</td><td>{user['telegram_id']}</td><td>{remaining_traffic:.2f} GB</td><td>{reset_times_str}</td>"
+
+        year = int(user['expire_date'][:4])
+        month = int(user['expire_date'][4:6])
+        day = int(user['expire_date'][6:8])
+        shamsi_date = jdatetime_datetime(year, month, day)
+
+        # Calculate the number of remaining days until expiration
+        try:
+            today_shamsi = jdatetime_datetime.now(pytz.timezone('Asia/Tehran')).replace(hour=0, minute=0, second=0, microsecond=0).date()
+            remaining_days = (shamsi_date.date() - today_shamsi).days
+            if remaining_days < 0:
+                remaining_days = 0  # If expiration date is in the past, set remaining_days to 0
+        except:
+            remaining_days = 0  # Handle any error by setting remaining_days to 0
+
+        
+        uuid_link = f'<a href="https://getafreenode.com/node.php?uuid={user["uuid"]}" target="_blank" style="color: blue;">{user["uuid"]}</a>'
+        row = f"<tr><td>{uuid_link}</td><td>{user['telegram_id']}</td><td>{remaining_traffic:.2f} GB</td><td>{reset_times_str}</td><td>{remaining_days} days</td>"
+
+
         if remaining_traffic < 3:
             row += f"<td><button class=\"blue-button\" onclick=\"extendVolume('{user['uuid']}')\">+ Increase</button></td>"
         else:
@@ -104,6 +125,7 @@ def index():
                 user_table.append(row)
     table_html = TABLE_HTML.format('\n'.join(user_table))
     return render_template('index.html', users=users, table_html=table_html)
+
 
 if __name__ == '__main__':
     app.run(debug=False)
