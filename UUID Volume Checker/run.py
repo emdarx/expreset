@@ -45,8 +45,8 @@ def memoize(func):
 @memoize
 @retry(wait=wait_fixed(2), stop=stop_after_delay(10))
 def get_remaining_traffic(uuid):
-    remaining_traffic = 0.0  # initialize remaining_traffic to 0.0
-    reset_times = None  # initialize reset_times to None
+    remaining_traffic = 0.0
+    reset_times = None
     url = f"https://getafreenode.com/vendor/api.php?act=getuserinfo&uuid={uuid}"
     response = requests.get(url)
     if response.status_code == 200:
@@ -64,7 +64,7 @@ TABLE_HTML = """
       <thead>
         <tr>
           <th>UUID</th>
-          <th>Telegram ID</th>
+          <th>ID</th>
           <th>Remaining Volume</th>
           <th>Number of Charges</th>
           <th>Days Left</th>
@@ -77,7 +77,6 @@ TABLE_HTML = """
     </table>
 """
 
-
 def fetch_remaining_traffic(user):
     try:
         remaining_traffic, reset_times = get_remaining_traffic(user['uuid'])
@@ -88,19 +87,17 @@ def fetch_remaining_traffic(user):
         day = int(user['expire_date'][6:8])
         shamsi_date = jdatetime_datetime(year, month, day)
 
-        # Calculate the number of remaining days until expiration
         try:
             today_shamsi = jdatetime_datetime.now(pytz.timezone('Asia/Tehran')).replace(hour=0, minute=0, second=0, microsecond=0).date()
             remaining_days = (shamsi_date.date() - today_shamsi).days
             if remaining_days < 0:
-                remaining_days = 0  # If expiration date is in the past, set remaining_days to 0
-        except:
-            remaining_days = 0  # Handle any error by setting remaining_days to 0
+                remaining_days = (today_shamsi - shamsi_date.date()).days
+                remaining_days = -remaining_days
+        except Exception:
+            remaining_days = 0
 
-        
         uuid_link = f'<a href="https://getafreenode.com/node.php?uuid={user["uuid"]}" target="_blank" style="color: blue;">{user["uuid"]}</a>'
         row = f"<tr><td>{uuid_link}</td><td>{user['telegram_id']}</td><td>{remaining_traffic:.2f} GB</td><td>{reset_times_str}</td><td>{remaining_days} days</td>"
-
 
         if remaining_traffic < 3:
             row += f"<td><button class=\"blue-button\" onclick=\"extendVolume('{user['uuid']}')\">+ Increase</button></td>"
@@ -108,9 +105,8 @@ def fetch_remaining_traffic(user):
             row += "<td></td>"
         row += "</tr>"
         return row
-    except:
+    except Exception:
         return ""
-
 
 @app.route('/')
 def index():
@@ -125,7 +121,6 @@ def index():
                 user_table.append(row)
     table_html = TABLE_HTML.format('\n'.join(user_table))
     return render_template('index.html', users=users, table_html=table_html)
-
 
 if __name__ == '__main__':
     app.run(debug=False)
