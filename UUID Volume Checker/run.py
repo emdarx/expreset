@@ -68,7 +68,7 @@ TABLE_HTML = """
           <th>Remaining Volume</th>
           <th>Number of Charges</th>
           <th>Days Left</th>
-          <th></th>
+          <th>Extend Traffic</th>
         </tr>
       </thead>
       <tbody>
