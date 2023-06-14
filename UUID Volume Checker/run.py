@@ -24,7 +24,7 @@ def get_users():
             users.append({'telegram_id': telegram_id, 'uuid': uuid, 'expire_date': expire_date})
         except ValueError:
             pass
-    return users
+    return sorted(users, key=lambda u: get_remaining_days(u['expire_date']))
 
 
 def memoize(func):
@@ -77,14 +77,34 @@ TABLE_HTML = """
     </table>
 """
 
+
 def fetch_remaining_traffic(user):
     try:
         remaining_traffic, reset_times = get_remaining_traffic(user['uuid'])
         reset_times_str = f"{reset_times}/5" if reset_times is not None else ""
 
-        year = int(user['expire_date'][:4])
-        month = int(user['expire_date'][4:6])
-        day = int(user['expire_date'][6:8])
+        remaining_days = get_remaining_days(user['expire_date'])
+
+        uuid_link = f'<a href="https://getafreenode.com/node.php?uuid={user["uuid"]}" target="_blank" style="color: blue;">{user["uuid"]}</a>'
+        row = f"<tr><td>{uuid_link}</td><td>{user['telegram_id']}</td><td>{remaining_traffic:.2f} GB</td><td>{reset_times_str}</td><td>{remaining_days} days</td>"
+
+        if remaining_traffic < 3:
+            row += f"<td><button class=\"blue-button\" onclick=\"extendVolume('{user['uuid']}')\">+ Increase</button></td>"
+        else:
+            row += "<td></td>"
+        row += "</tr>"
+        return remaining_days, row
+    except Exception:
+        return float('inf'), ""
+
+
+def get_remaining_days(expire_date):
+    if expire_date.lower() == 'unlimited':
+        return float('inf')
+    else:
+        year = int(expire_date[:4])
+        month = int(expire_date[4:6])
+        day = int(expire_date[6:8])
         shamsi_date = jdatetime_datetime(year, month, day)
 
         try:
@@ -96,17 +116,8 @@ def fetch_remaining_traffic(user):
         except Exception:
             remaining_days = 0
 
-        uuid_link = f'<a href="https://getafreenode.com/node.php?uuid={user["uuid"]}" target="_blank" style="color: blue;">{user["uuid"]}</a>'
-        row = f"<tr><td>{uuid_link}</td><td>{user['telegram_id']}</td><td>{remaining_traffic:.2f} GB</td><td>{reset_times_str}</td><td>{remaining_days} days</td>"
+        return remaining_days
 
-        if remaining_traffic < 3:
-            row += f"<td><button class=\"blue-button\" onclick=\"extendVolume('{user['uuid']}')\">+ Increase</button></td>"
-        else:
-            row += "<td></td>"
-        row += "</tr>"
-        return row
-    except Exception:
-        return ""
 
 @app.route('/')
 def index():
@@ -116,11 +127,14 @@ def index():
         future_to_user = {executor.submit(fetch_remaining_traffic, user): user for user in users}
         for future in concurrent.futures.as_completed(future_to_user):
             user = future_to_user[future]
-            row = future.result()
+            remaining_days, row = future.result()
             if row:
-                user_table.append(row)
-    table_html = TABLE_HTML.format('\n'.join(user_table))
+                user_table.append((remaining_days, row))
+    sorted_user_table = sorted(user_table, key=lambda x: x[0])
+    sorted_rows = [row for _, row in sorted_user_table]
+    table_html = TABLE_HTML.format('\n'.join(sorted_rows))
     return render_template('index.html', users=users, table_html=table_html)
+
 
 if __name__ == '__main__':
     app.run(debug=False)
