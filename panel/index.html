@@ -1,0 +1,178 @@
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>${PANELCODE} VPN Panel</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+      <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Enable PWA for iOS -->
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Customize the status bar appearance -->
+      <link rel="apple-touch-icon" sizes="180x180" href="https://s30.picofile.com/file/8469347300/express_icon.jpg"> <!-- Add iOS icon -->
+      <link rel="manifest" href="https://raw.githubusercontent.com/emdarx/expreset/main/pwa/manifest.json"> <!-- Link to the manifest file -->
+      <style>
+      @font-face { 
+        font-family: 'IRANSans';
+        src: url('https://github.com/hamid80386/iran-sans/raw/master/fonts/IRANSans-web.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+
+    body {
+      font-family: 'IRANSans', sans-serif;
+      font-size: 12px;
+      background-color: #2C3E50;
+      color: #ECF0F1;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+  }
+  
+          .logo {
+              /* Added logo styles */
+              margin-bottom: 20px;
+          }
+  
+          .container {
+              background-color: #34495E;
+              border-radius: 5px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              padding: 20px;
+              width: 300px;
+              text-align: center;
+          }
+  
+          h1 {
+              font-size: 24px;
+              margin: 10px 0;
+          }
+  
+          h2 {
+              font-size: 18px;
+              margin: 20px 0 10px;
+          }
+  
+          label {
+              display: block;
+              margin: 10px 0;
+              color: #ECF0F1;
+          }
+  
+          .input-container {
+              position: relative;
+          }
+  
+          input[type="text"] {
+              width: calc(100% - 30px); /* Adjusted width to fit in one line */
+              padding: 8px;
+              border: none;
+              background-color: #475A70;
+              color: #ECF0F1;
+              border-radius: 5px;
+              font-size: 14px; /* Adjusted font size */
+              display: inline-block; /* Added to display in one line */
+          }
+  
+          .random-button {
+              position: absolute;
+              top: 50%;
+              right: 5px;
+              transform: translateY(-50%);
+              background-color: #007BFF;
+              color: #fff;
+              border: none;
+              border-radius: 5px;
+              padding: 5px 10px;
+              cursor: pointer;
+              font-size: 12px;
+          }
+  
+          button.create-button {
+              background-color: #007BFF;
+              color: #fff;
+              border: none;
+              border-radius: 5px;
+              padding: 10px 20px;
+              cursor: pointer;
+              margin-top: 10px;
+              font-size: 14px; /* Adjusted font size */
+          }
+  
+          button.random-button:hover {
+              background-color: #0056b3;
+          }
+  
+          a {
+              text-decoration: none;
+              color: #007BFF;
+              cursor: pointer;
+          }
+  
+          a:hover {
+              text-decoration: underline;
+          }
+  
+          /* Media Query for Mobile */
+          @media (max-width: 480px) {
+              .container {
+                  width: 90%;
+              }
+          }
+      </style>
+      <script>
+          function validateCreateForm() {
+              const newUsername = document.getElementById('newUsername');
+  
+              if (newUsername.value.trim() === '') {
+                  alert('Username field cannot be empty.');
+                  return false;
+              }
+  
+              return true;
+          } 
+  
+          function generateRandomString(length) {
+              const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+              let result = '';
+              for (let i = 0; i < length; i++) {
+                  result += characters.charAt(Math.floor(Math.random() * characters.length));
+              }
+              return result;
+          }
+  
+          function fillRandomString() {
+              const newUsername = document.getElementById('newUsername');
+              newUsername.value = generateRandomString(8);
+          }
+      </script> 
+  </head> 
+  <body>
+      <div class="logo">
+          <img src="https://github.com/emdarx/expreset-site/blob/main/files/express_icon.jpg?raw=true" alt="Expreset Logo" width="80" height="80" />
+      </div>
+      <div class="container">
+      <h1>پنل مدیریت کاربران</h1>          <form action="/create" method="post" onsubmit="return validateCreateForm()">
+              <h2>افزودن کاربر</h2>
+              <div class="input-container">
+                  <input type="text" id="newUsername" name="username" />
+                  <button type="button" class="random-button" onclick="fillRandomString()"> 🎲</button>
+              </div>
+              <button type="submit" class="create-button">CREATE</button>
+          </form>
+  
+          <form action="/delete" method="post" onsubmit="return validateDeleteForm()">
+          <h2>انسداد کاربر</h2>
+          <input type="text" id="deleteUsername" name="username" />
+          <button type="submit" class="create-button">DELETE</button>
+      </form> 
+      <h2>لیست کاربران</h2>
+      <p>برای مشاهده لیست کاربران، <a href="https://list-users.50e8ca667aa2b4ff1224fecc70164782.workers.dev/${PANELCODE}" target="_blank">اینجا کلیک کنید</a></p>
+  </div>
+      <p>پنل حجم نامحدود 50 کاربره</p>
+  </body>
+  </html>
