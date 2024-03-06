@@ -1,0 +1,163 @@
+<style>
+      @font-face {
+        font-family: 'IRANSans';
+        src: url('https://github.com/hamid80386/iran-sans/raw/master/fonts/IRANSans-web.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+  
+      body {
+        font-family: 'IRANSans', sans-serif;
+        font-size: 12px;
+        background-color: #2C3E50;
+        color: #ECF0F1;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+  
+      .logo {
+          margin-bottom: 20px;
+      }
+  
+      .container {
+          background-color: #34495E;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          width: 300px;
+          text-align: center;
+      }
+  
+      h1 {
+          font-size: 24px;
+          margin: 10px 0;
+      }
+  
+      h2 {
+          font-size: 18px;
+          margin: 20px 0 10px;
+      }
+  
+      label {
+          display: block;
+          margin: 10px 0;
+          color: #ECF0F1;
+      }
+  
+      .input-container {
+          position: relative;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+  
+      input[type="text"] {
+          width: calc(100% - 80px);
+          padding: 8px;
+          border: none;
+          background-color: #475A70;
+          color: #ECF0F1;
+          border-radius: 5px;
+          font-size: 14px;
+          margin-right: 5px;
+      }
+  
+      button.random-button {
+          background-color: #007BFF;
+          color: #fff; 
+          border: none;
+          border-radius: 9px;
+          padding: 5px 10px;
+          cursor: pointer;
+          font-size: 17px;
+        }
+
+      button.date-button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 9px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 17px; 
+        margin-left: 3px;
+    }
+  
+    .date-options {
+      position: absolute;
+      background-color: #34495E;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      width: 350px; 
+	    height: 350px; 
+      text-align: center;
+      top: -38px; 
+  
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .date-options label {
+      display: block;
+      margin: 5px 0;
+      color: #ECF0F1;
+    }
+    
+    .date-options button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    
+    .date-options button:hover {
+      background-color: #0056b3;
+    }
+
+      button.create-button {
+          background-color: #007BFF;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          padding: 10px 50px;
+          cursor: pointer;
+          margin-top: 10px;
+          font-size: 15px;
+      }
+  
+      button.random-button:hover, button.create-button:hover {
+          background-color: #0056b3;
+      }
+
+      button.date-button:hover, button.create-button:hover {
+        background-color: #0056b3;
+    }
+  
+      a {
+          text-decoration: none;
+          color: #007BFF;
+          cursor: pointer;
+      }
+  
+      a:hover {
+          text-decoration: underline;
+      }
+  
+      /* Media Query for Mobile */
+      @media (max-width: 480px) {
+          .container {
+              width: 90%;
+          }
+      }
+      </style>
