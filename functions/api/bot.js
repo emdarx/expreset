@@ -13,7 +13,7 @@ const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 const DOMAINS_LIST = [
     { domain: "aptic.ir", zoneId: "26d0b00a76a66f702014eef0881b751d" },
     { domain: "smident.ir", zoneId: "e8e97daec2ff9f9ed2f1321690cf773f" },
-  //  { domain: "goshime.ir", zoneId: "4fe611219e2ee6065929eae3927ef60b" },
+    { domain: "goshime.ir", zoneId: "4fe611219e2ee6065929eae3927ef60b" },
     { domain: "mitsonic.ir", zoneId: "a88f3fa7f4946a5e8f32b524223a7fcb" },
 ];    
     
@@ -924,7 +924,7 @@ async function showV2rayPlans(chatId, userId, env, msgId = null, isPhoto = false
     ];  
   
     if (botSettings.free_test_status) {
-        buttons.unshift([{ text: 'تست 1 روزه حجم نامحدود (رایگان)', url: `https://exp-web-1cx.pages.dev/` }]);
+        buttons.unshift([{ text: 'تست 1 روزه حجم نامحدود (رایگان)', url: `https://expreset.pages.dev/` }]);
     }
 
     const text = `🚀 *سرویس اختصاصی V2Ray*
